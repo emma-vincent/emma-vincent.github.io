@@ -1,20 +1,106 @@
+---
+layout: null
+---
 
-PhD-trained computational physicist transitioning into consulting and project management.
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emma Vincent</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #222;
+    }
 
-I work at the intersection of analytical problem-solving, communication, and strategy. My background includes computational modeling, data analysis, and research delivery.
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      padding: 60px 35px;
+      box-sizing: border-box;
+      background: #f5f5f5;
+      border-right: 1px solid #ddd;
+    }
 
-## Focus areas
+    .sidebar h1 {
+      margin-top: 0;
+      font-size: 28px;
+    }
 
-- Consulting and strategy
-- Project management
-- Data analysis
-- Scientific and technical communication
+    .sidebar p {
+      color: #555;
+    }
 
-## Projects
+    .sidebar a {
+      display: block;
+      margin: 12px 0;
+      color: #222;
+      text-decoration: none;
+    }
 
-Coming soon.
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
 
-## Contact
+    .main {
+      margin-left: 280px;
+      padding: 60px 80px;
+      max-width: 800px;
+    }
 
-- LinkedIn: coming soon
-- GitHub: coming soon
+    h2 {
+      margin-top: 40px;
+    }
+
+    @media (max-width: 800px) {
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 35px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <h1>Emma Vincent</h1>
+    <p>PhD-trained computational physicist transitioning into consulting and project management.</p>
+
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </aside>
+
+  <main class="main">
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        I recently completed a PhD in computational physics, where I worked on complex modeling,
+        data analysis, and research communication. I am now transitioning into consulting and
+        project-oriented roles that combine analytical problem-solving with stakeholder communication
+        and strategic thinking.
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <p>Coming soon.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>LinkedIn and GitHub links coming soon.</p>
+    </section>
+  </main>
+</body>
+</html>
