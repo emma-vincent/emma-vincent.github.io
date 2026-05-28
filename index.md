@@ -1,10 +1,8 @@
-# Emma Vincent
 
 PhD-trained computational physicist transitioning into consulting and project management.
 
 ## About
-
-I recently completed a PhD in computational physics and am interested in consulting, strategy, analytics, and project-management-oriented roles.
+I recently completed a PhD in computational physics, where I worked on complex modeling, data analysis, and research communication. I am now transitioning into consulting and project-oriented roles that combine analytical problem-solving with stakeholder communication and strategic thinking.
 
 ## Projects
 
