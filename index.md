@@ -1,4 +1,3 @@
-# Emma Vincent
 
 PhD-trained computational physicist transitioning into consulting and project management.
 
