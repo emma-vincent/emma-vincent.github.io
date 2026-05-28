@@ -4,8 +4,10 @@ layout: null
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Emma Vincent</title>
+
   <style>
     body {
       margin: 0;
@@ -72,9 +74,13 @@ layout: null
 </head>
 
 <body>
+
   <aside class="sidebar">
     <h1>Emma Vincent</h1>
-    <p>PhD-trained computational physicist transitioning into consulting and project management.</p>
+
+    <p>
+      PhD-trained computational physicist transitioning into consulting and project management.
+    </p>
 
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
@@ -82,25 +88,36 @@ layout: null
   </aside>
 
   <main class="main">
+
     <section id="about">
       <h2>About</h2>
+
       <p>
-        I recently completed a PhD in computational physics, where I worked on complex modeling,
-        data analysis, and research communication. I am now transitioning into consulting and
-        project-oriented roles that combine analytical problem-solving with stakeholder communication
-        and strategic thinking.
+        I recently completed a PhD in computational physics, where I worked on complex
+        modeling, data analysis, and research communication.
+      </p>
+
+      <p>
+        I am now transitioning into consulting and project-oriented roles that combine
+        analytical problem-solving with stakeholder communication and strategic thinking.
       </p>
     </section>
 
     <section id="projects">
       <h2>Projects</h2>
+
       <p>Coming soon.</p>
     </section>
 
     <section id="contact">
       <h2>Contact</h2>
-      <p>LinkedIn and GitHub links coming soon.</p>
+
+      <p>
+        LinkedIn and GitHub links coming soon.
+      </p>
     </section>
+
   </main>
+
 </body>
 </html>
