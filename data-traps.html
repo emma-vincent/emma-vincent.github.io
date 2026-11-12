@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Data Traps — interactive explorations of statistical, AI, visualisation, modelling and decision-making pitfalls.">
+  <title>Data Traps | Emma Vincent</title>
+
+  <style>
+    :root {
+      --bg: #f8f9f7;
+      --surface: #fff;
+      --ink: #202d2b;
+      --muted: #61706c;
+      --accent: #387e79;
+      --accent-light: #edf4f2;
+      --warm: #987954;
+      --border: #e1e7e3;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    /* Navigation */
+
+    header {
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      text-decoration: none;
+      font-size: 21px;
+      font-weight: 750;
+      letter-spacing: -0.8px;
+    }
+
+    .brand span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 550;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    /* Typography */
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    /* Hero */
+
+    .hero {
+      padding: 105px 0 110px;
+      max-width: 850px;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 6.5vw, 78px);
+      letter-spacing: -3.5px;
+      line-height: 1.1;
+      margin: 25px 0 28px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-meta span {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 8px 15px;
+      color: var(--muted);
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Shared sections */
+
+    .section {
+      padding: 85px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 4vw, 39px);
+      letter-spacing: -1.3px;
+      margin: 8px 0 10px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 650px;
+    }
+
+    /* Featured module */
+
+    .featured {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    .featured-content {
+      padding: clamp(30px, 5vw, 65px);
+    }
+
+    .status {
+      display: inline-block;
+      color: var(--accent);
+      background: var(--accent-light);
+      border-radius: 5px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .featured h3 {
+      font-size: clamp(28px, 3.4vw, 42px);
+      letter-spacing: -1.4px;
+      line-height: 1.2;
+      margin: 25px 0 20px;
+    }
+
+    .featured-content p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .featured-note {
+      margin-top: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .featured-art {
+      background: var(--accent-light);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .rate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .rate-row strong {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .rate-row span {
+      font-size: 28px;
+      font-weight: 750;
+      letter-spacing: -1px;
+    }
+
+    .rate-track {
+      height: 13px;
+      background: rgba(56,126,121,0.12);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .rate-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: var(--accent);
+    }
+
+    .rate-fill.a { width: 78%; }
+    .rate-fill.b { width: 51%; background: var(--warm); }
+
+    .chart-caption {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Series */
+
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .series-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      scroll-margin-top: 30px;
+    }
+
+    .series-number {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 750;
+      letter-spacing: 2px;
+    }
+
+    .series-card h3 {
+      margin: 15px 0 10px;
+      font-size: 25px;
+      letter-spacing: -0.7px;
+    }
+
+    .series-description {
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 65px;
+    }
+
+    .module-list {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .module-list li {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .module-name {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .module-status {
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+
+    .module-status.active {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Method */
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .method-step {
+      border-top: 2px solid var(--accent);
+      padding-top: 18px;
+    }
+
+    .method-step span {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 750;
+    }
+
+    .method-step h3 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .method-step p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Footer */
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 800px) {
+      .featured { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 650px) {
+      nav {
+        flex-wrap: wrap;
+        padding: 18px 0;
+        min-height: 75px;
+      }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 13px; }
+
+      .hero { padding: 75px 0; }
+      .hero h1 { letter-spacing: -2px; }
+
+      .section { padding: 60px 0; }
+      .series-grid { grid-template-columns: 1fr; }
+      .series-description { min-height: 0; }
+      .featured-art { padding: 35px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="/">Emma Vincent<span>.</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#work" class="active" aria-current="page">Work</a>
+        <a href="/#about">About</a>
+        <a href="/#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- INTRODUCTION -->
+
+    <div class="container">
+      <section class="hero">
+        <div class="eyebrow">Interactive Analytics</div>
+        <h1>Correct Numbers.<br>Wrong Conclusions.</h1>
+
+        <p>
+          Data Traps explores how apparently convincing evidence
+          can lead to misleading conclusions — and how better
+          analytical thinking can change the decisions we make.
+        </p>
+
+        <div class="hero-meta">
+          <span>5 series</span>
+          <span>15 proposed investigations</span>
+          <span>1 module in development</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- FEATURED INVESTIGATION -->
+
+    <section class="section">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">First investigation</div>
+          <h2>The better recycling facility?</h2>
+          <p>
+            An introduction to Simpson's Paradox through a
+            deceptively simple operational comparison.
+          </p>
+        </div>
+
+        <article class="featured">
+          <div class="featured-content">
+            <span class="status">In development</span>
+
+            <h3>
+              Two facilities.<br>
+              Two recycling rates.<br>
+              One misleading conclusion.
+            </h3>
+
+            <p>
+              Facility A recycles 78% of its incoming material.
+              Facility B recycles just 51%.
+              The better performer seems obvious.
+            </p>
+
+            <p>
+              But what happens when we examine the different
+              types of waste each facility processes?
+            </p>
+
+            <div class="featured-note">
+              Statistical Traps · Simpson's Paradox
+            </div>
+          </div>
+
+          <div class="featured-art" role="img"
+               aria-label="Facility A recycles 78 percent overall, compared with 51 percent at Facility B.">
+            <div>
+              <div class="rate-row">
+                <strong>Facility A</strong>
+                <span>78%</span>
+              </div>
+              <div class="rate-track">
+                <div class="rate-fill a"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="rate-row">
+                <strong>Facility B</strong>
+                <span>51%</span>
+              </div>
+              <div class="rate-track">
+                <div class="rate-fill b"></div>
+              </div>
+            </div>
+
+            <p class="chart-caption">
+              Overall recycling rate · Constructed example
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SERIES CATALOGUE -->
+
+    <section class="section" id="series">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">The collection</div>
+          <h2>Five ways data can mislead.</h2>
+          <p>
+            Each series examines a different source of analytical
+            error, from statistical aggregation to flawed
+            decision-making.
+          </p>
+        </div>
+
+        <div class="series-grid">
+
+          <article class="series-card" id="statistical">
+            <div class="series-number">01 / 05</div>
+            <h3>Statistical Traps</h3>
+            <p class="series-description">
+              When the calculations are correct, but aggregation,
+              sampling or interpretation changes the story.
+            </p>
+            <ul class="module-list">
+              <li>
+                <span class="module-name">Simpson's Paradox — The Better Recycling Facility?</span>
+                <span class="module-status active">In development</span>
+              </li>
+              <li>
+                <span class="module-name">The Misleading Average — Are Salaries Really Rising?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">Correlation Isn't Causation — Did the Training Program Work?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="series-card" id="ai">
+            <div class="series-number">02 / 05</div>
+            <h3>AI Traps</h3>
+            <p class="series-description">
+              Explore the limits of predictive systems, machine
+              learning and apparently confident AI outputs.
+            </p>
+            <ul class="module-list">
+              <li>
+                <span class="module-name">The Confident AI — When Answers Sound More Reliable Than They Are</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Biased Predictor — Who Gets Approved?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Accuracy Illusion — Is 99% Accurate Good Enough?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="series-card" id="visualisation">
+            <div class="series-number">03 / 05</div>
+            <h3>Visualisation Traps</h3>
+            <p class="series-description">
+              How axes, scales, denominators and presentation
+              choices shape the meaning of what we see.
+            </p>
+            <ul class="module-list">
+              <li>
+                <span class="module-name">The Truncated Axis — Has Performance Exploded?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Wrong Scale — Is This Trend Linear?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Missing Denominator — Which Region Performs Better?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="series-card" id="modelling">
+            <div class="series-number">04 / 05</div>
+            <h3>Modelling Traps</h3>
+            <p class="series-description">
+              Investigate the assumptions, uncertainty and
+              validation problems behind convincing models.
+            </p>
+            <ul class="module-list">
+              <li>
+                <span class="module-name">The Overfitted Forecast — Why Did Our Perfect Model Fail?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Hidden Assumption — Is This Investment Profitable?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Forecast That Failed — Did We Ignore Uncertainty?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="series-card" id="decision">
+            <div class="series-number">05 / 05</div>
+            <h3>Decision Traps</h3>
+            <p class="series-description">
+              What happens when sound-looking metrics lead to
+              poorly framed choices or unintended outcomes?
+            </p>
+            <ul class="module-list">
+              <li>
+                <span class="module-name">The Wrong KPI — Are We Optimising the Right Thing?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Sunk Cost Trap — Should We Keep Investing?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+              <li>
+                <span class="module-name">The Cheapest Option — Is Lowest Cost Really Best?</span>
+                <span class="module-status">Proposed</span>
+              </li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON FORMAT -->
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">The approach</div>
+          <h2>Don't just read the answer.</h2>
+          <p>
+            Each investigation is designed to make you question
+            the evidence, test your assumptions and discover
+            why an appealing conclusion may not hold up.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span>01</span>
+            <h3>Claim</h3>
+            <p>Encounter a plausible conclusion.</p>
+          </div>
+          <div class="method-step">
+            <span>02</span>
+            <h3>Question</h3>
+            <p>Make your own judgement.</p>
+          </div>
+          <div class="method-step">
+            <span>03</span>
+            <h3>Reveal</h3>
+            <p>Uncover the hidden complication.</p>
+          </div>
+          <div class="method-step">
+            <span>04</span>
+            <h3>Correction</h3>
+            <p>Reconstruct a defensible interpretation.</p>
+          </div>
+          <div class="method-step">
+            <span>05</span>
+            <h3>Application</h3>
+            <p>Apply the insight to a real-world decision.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© Emma Vincent · Data Traps</span>
+      <a href="/">Back to homepage</a>
+    </div>
+  </footer>
+
+</body>
+</html>
